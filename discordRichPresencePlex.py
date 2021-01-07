@@ -292,17 +292,14 @@ class discordRichPresencePlex(discordRichPresence):
 				self.stopTimer2.start()
 				self.lastState, self.lastSessionKey, self.lastRatingKey = state, sessionKey, ratingKey
 				mediaType = metadata.type
-				if (state != "playing"):
-					extra = secondsToText(viewOffset / 1000, ":") + "/" + secondsToText(metadata.duration / 1000, ":")
-				else:
-					extra = secondsToText(metadata.duration / 1000)
+				extra = ""
 				if (mediaType == "movie"):
 					title = metadata.title + " (" + str(metadata.year) + ")"
-					extra = extra + " · " + ", ".join([genre.tag for genre in metadata.genres[:3]])
+					extra = ", ".join([genre.tag for genre in metadata.genres[:3]])
 					largeText = "Watching a Movie"
 				elif (mediaType == "episode"):
 					title = metadata.grandparentTitle
-					extra = extra + " · S" + str(metadata.parentIndex) + " · E" + str(metadata.index) + " - " + metadata.title
+					extra = "S" + str(metadata.parentIndex).zfill(2) + "E" + str(metadata.index).zfill(2) + " - " + metadata.title
 					largeText = "Watching a TV Show"
 				elif (mediaType == "track"):
 					title = metadata.title
